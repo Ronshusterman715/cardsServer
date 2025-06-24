@@ -13,9 +13,9 @@ router.post("/", auth, async (req, res) => {
             return res.status(403).send("Only business users can create cards");
         }
 
-        normalizeCard = await normalizeCard(req.body, userInfo.id);
+        let normalizedCard = await normalizeCard(req.body, userInfo._id);
 
-        let card = await createCard(normalizeCard);
+        let card = await createCard(normalizedCard);
         res.status(201).send(card);
     } catch (error) {
         res.status(400).send(error.message)

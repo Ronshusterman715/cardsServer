@@ -19,7 +19,7 @@ const auth = (req, res, next) => {
             req.user = userInfo;
             return next();
         } catch (error) {
-            res.status(401).send(error.massage);
+            res.status(401).send(error.message);
             return;
         }
     }
