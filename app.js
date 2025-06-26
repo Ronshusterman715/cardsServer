@@ -2,6 +2,7 @@ const express = require('express');
 const connectToDB = require('./DB/dbService');
 const router = require('./router/router');
 const corsMiddleware = require('./middlewares/cors');
+const { handleError } = require('./utils/handleErrors');
 
 const app = express();
 const port = 3000;
@@ -19,7 +20,7 @@ app.use(router);
 
 app.use((err, req, res, next) => {
     console.log(err);
-    res.status(500).json({ message: 'Internal Server Error', error: err.message });
+    return handleError(res, 500, "Internal Server Error");
 });
 
 app.listen(port, () => {

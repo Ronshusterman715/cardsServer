@@ -1,3 +1,4 @@
+const { createError } = require("../utils/handleErrors");
 const connectToAtlasDB = require("./mongoDB/connectToAtlas");
 const connectToLocalDB = require("./mongoDB/connectToMongodbLocally");
 
@@ -11,7 +12,7 @@ const connectToDB = async () => {
         await connectToAtlasDB();
         return "Connected to production database";
     } else {
-        throw new Error("Unknown environment");
+        return createError("environment", "Unknown environment", 500);
     }
 }
 

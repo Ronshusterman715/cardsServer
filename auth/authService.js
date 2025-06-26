@@ -1,4 +1,4 @@
-const { createError } = require("../utils/handleErrors");
+const { createError, handleError } = require("../utils/handleErrors");
 const { verifyToken } = require("./providers/jwt");
 
 const TOKEN_GENERATOR = "jwt";
@@ -14,17 +14,18 @@ const auth = (req, res, next) => {
             const userInfo = verifyToken(tokenFromClient);
 
             if (!userInfo) {
-                throw new Error("Authentication Error: Unauthorized User");
+                return createError("Authentication", "Unauthorized User", 403);
             }
 
             req.user = userInfo;
             return next();
         } catch (error) {
-            res.status(401).send(error.message);
-            return;
+            // res.status(error.status).send(error.message);
+            return handleError(res, error.status, error.message);
         }
     }
-    return res.status(500).send("Server Authentication method not found");
+    // return res.status(500).send("Server Authentication method not found");
+    return handleError(res, 500, "Server Authentication method not found");
 };
 
 module.exports = {
