@@ -2,6 +2,7 @@ const express = require("express");
 const { createCard, getCardById, getAllCards, getMyCard, updateCard, deleteCard, likeCard } = require("../models/cardsAccessDataService");
 const { auth } = require("../../auth/authService");
 const normalizeCard = require("../helpers/normalizeCard");
+const { handleError } = require("../../utils/handleErrors");
 
 const router = express.Router();
 
@@ -10,7 +11,7 @@ router.post("/", auth, async (req, res) => {
     try {
         const userInfo = req.user;
         if (!userInfo.isBusiness) {
-            return res.status(403).send("Only business users can create cards");
+            handleError(res, 403, "Only business users can create cards");
         }
 
         let normalizedCard = await normalizeCard(req.body, userInfo._id);
@@ -18,7 +19,7 @@ router.post("/", auth, async (req, res) => {
         let card = await createCard(normalizedCard);
         res.status(201).send(card);
     } catch (error) {
-        res.status(400).send(error.message)
+        handleError(res, 400, error.message);
     }
 });
 

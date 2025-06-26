@@ -1,3 +1,4 @@
+const { createError } = require("../utils/handleErrors");
 const { verifyToken } = require("./providers/jwt");
 
 const TOKEN_GENERATOR = "jwt";
@@ -7,7 +8,7 @@ const auth = (req, res, next) => {
         try {
             const tokenFromClient = req.header("x-auth-token");
             if (!tokenFromClient) {
-                throw new Error("Authentication Error: Please Login");
+                return createError("Authentication", "Please Login", 401);
             }
 
             const userInfo = verifyToken(tokenFromClient);
