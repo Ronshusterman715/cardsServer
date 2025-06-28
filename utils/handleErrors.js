@@ -1,3 +1,5 @@
+const chalk = require("chalk");
+
 const createError = (validator, message, status) => {
     if (message.includes(`Error:`)) {
         const error = new Error(message);
@@ -7,12 +9,11 @@ const createError = (validator, message, status) => {
 
     const error = new Error(`${validator} Error: ${message}`);
     error.status = status || 400;
-    console.log(error.message + ` - Status: ${error.status}`);
     throw error;
 }
 
 const handleError = (res, status, message = "") => {
-    console.log(message);
+    console.log(chalk.redBright(message));
     return res.status(status).send(message);
 };
 

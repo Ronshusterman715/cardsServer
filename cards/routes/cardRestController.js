@@ -2,7 +2,7 @@ const express = require("express");
 const { createCard, getCardById, getAllCards, getMyCard, updateCard, deleteCard, likeCard } = require("../models/cardsAccessDataService");
 const { auth } = require("../../auth/authService");
 const normalizeCard = require("../helpers/normalizeCard");
-const { handleError } = require("../../utils/handleErrors");
+const { handleError, createError } = require("../../utils/handleErrors");
 
 const router = express.Router();
 
@@ -11,7 +11,7 @@ router.post("/", auth, async (req, res) => {
     try {
         const userInfo = req.user;
         if (!userInfo.isBusiness) {
-            handleError(res, 403, "Only business users can create cards");
+            return createError("autorotation", 403, "Only business users can create cards");
         }
 
         let normalizedCard = await normalizeCard(req.body, userInfo._id);
@@ -19,7 +19,7 @@ router.post("/", auth, async (req, res) => {
         let card = await createCard(normalizedCard);
         res.status(201).send(card);
     } catch (error) {
-        handleError(res, 400, error.message);
+        return handleError(res, error.status, error.message);
     }
 });
 
@@ -29,7 +29,7 @@ router.get("/", async (req, res) => {
         let allCards = await getAllCards();
         res.status(200).send(allCards);
     } catch (error) {
-        res.status(400).send(error.message)
+        return handleError(res, error.status, error.message);
     }
 });
 
@@ -38,13 +38,13 @@ router.get("/my-Cards", auth, async (req, res) => {
     try {
         const userInfo = req.user;
         if (!userInfo.isBusiness) {
-            return res.status(403).send("Only business users can view their cards");
+            return createError("autorotation", 403, "Only business users can view their cards");
         }
         const user_id = userInfo.id;
         let myCards = await getMyCard(user_id);
         res.status(200).send(myCards);
     } catch (error) {
-        res.status(400).send(error.message)
+        return handleError(res, error.status, error.message);
     }
 });
 
@@ -55,7 +55,7 @@ router.get("/:id", async (req, res) => {
         let card = await getCardById(id);
         res.status(200).send(card);
     } catch (error) {
-        res.status(400).send(error.message)
+        return handleError(res, 400, error.message);
     }
 });
 
@@ -67,14 +67,14 @@ router.put("/:id", auth, async (req, res) => {
         let userInfo = req.user;
         let originalCardFromDB = await getCardById(id);
         if (!userInfo.isAdmin && userInfo._id != originalCardFromDB.user_id) {
-            return res.status(403).send("only the owner of the card or an admin can update cards");
+            return createError("autorotation", error.status, error.message)
         }
-        let normalizeUpdateCard = await normalizeCard(req.body, userInfo._id);
 
+        let normalizeUpdateCard = await normalizeCard(req.body, userInfo._id);
         let card = await updateCard(id, normalizeUpdateCard);
         res.status(201).send(card);
     } catch (error) {
-        res.status(400).send(error.message)
+        return handleError(res, 400, error.message);
     }
 });
 
@@ -87,12 +87,12 @@ router.delete("/:id", auth, async (req, res) => {
 
         let originalCardFromDB = await getCardById(id);
         if (!userInfo.isAdmin && userInfo._id != originalCardFromDB.user_id) {
-            return res.status(403).send("only the owner of the card or an admin can delete cards");
+            return createError("autorotation", 403, "only the owner of the card or an admin can delete cards")
         }
 
         res.status(200).send(card);
     } catch (error) {
-        res.status(400).send(error.message)
+        return handleError(res, error.status, error.message)
     }
 });
 
@@ -104,7 +104,7 @@ router.patch("/:id", auth, async (req, res) => {
         let card = await likeCard(id, userId);
         res.status(200).send(card);
     } catch (error) {
-        res.status(400).send(error.message)
+        return handleError(res, 400, error.message);
     }
 })
 

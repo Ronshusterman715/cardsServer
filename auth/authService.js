@@ -20,11 +20,9 @@ const auth = (req, res, next) => {
             req.user = userInfo;
             return next();
         } catch (error) {
-            // res.status(error.status).send(error.message);
             return handleError(res, error.status, error.message);
         }
     }
-    // return res.status(500).send("Server Authentication method not found");
     return handleError(res, 500, "Server Authentication method not found");
 };
 

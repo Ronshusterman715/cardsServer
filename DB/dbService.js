@@ -2,13 +2,13 @@ const { createError } = require("../utils/handleErrors");
 const connectToAtlasDB = require("./mongoDB/connectToAtlas");
 const connectToLocalDB = require("./mongoDB/connectToMongodbLocally");
 
-const ENVIROMENT = "development";
+const ENVIRONMENT = "development";
 
 const connectToDB = async () => {
-    if (ENVIROMENT === "development") {
+    if (ENVIRONMENT === "development") {
         await connectToLocalDB();
         return "Connected to development database";
-    } else if (ENVIROMENT === "production") {
+    } else if (ENVIRONMENT === "production") {
         await connectToAtlasDB();
         return "Connected to production database";
     } else {

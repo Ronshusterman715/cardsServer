@@ -3,14 +3,17 @@ const connectToDB = require('./DB/dbService');
 const router = require('./router/router');
 const corsMiddleware = require('./middlewares/cors');
 const { handleError } = require('./utils/handleErrors');
+const chalk = require('chalk');
+
 
 const app = express();
 const port = 3000;
 
 app.use(express.json());
+app.use(express.static("./public"))
 
 app.use((req, res, next) => {
-    console.log(`Request URL: ${req.url} | Method: ${req.method} | Time: ${new Date()}`);
+    console.log(chalk.yellow(`Request URL: ${req.url} | Method: ${req.method} | Time: ${new Date()}`));
     next();
 });
 
@@ -24,7 +27,7 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(port, () => {
-    console.log('Server is running on port ' + port);
+    console.log(chalk.green.bold.bgYellow('Server is running on port ' + port));
     connectToDB()
 })
 

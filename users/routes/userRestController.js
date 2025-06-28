@@ -1,6 +1,7 @@
 const express = require('express');
 const { registerUser, getUser, getAllUsers, loginUser } = require('../models/usersAccessDataService');
 const { auth } = require('../../auth/authService');
+const { handleError, createError } = require('../../utils/handleErrors');
 const router = express.Router();
 
 //create new user
@@ -10,7 +11,7 @@ router.post('/', async (req, res) => {
         let user = await registerUser(newUser);
         res.status(201).json(user);
     } catch (error) {
-        res.status(400).json({ message: 'Error registering user: ' + error.message });
+        return handleError(res, 400, error.message);
     }
 });
 
@@ -21,13 +22,13 @@ router.get('/:id', auth, async (req, res) => {
 
         let userInfo = req.user;
         if (!userInfo.isAdmin && userInfo._id != user._id) {
-            return res.status(403).json({ message: 'only the user himself or an admin can view this user info' });
+            return createError("autorotation", 403, "only the user himself or an admin can view this user info");
         }
 
         let user = await getUser(id);
         res.status(200).json(user);
     } catch (error) {
-        res.status(400).json({ message: 'Error getting user: ' + error.message });
+        return handleError(res, error.status, error.message);
     }
 });
 
@@ -35,14 +36,14 @@ router.get('/:id', auth, async (req, res) => {
 router.get('/', auth, async (req, res) => {
     let userInfo = req.user;
     if (!userInfo.isAdmin) {
-        return res.status(403).json({ message: 'Only admins can view all users' });
+        return createError("autorotation", 403, "Only admin user can view all users");
     }
 
     try {
         let users = await getAllUsers();
         res.status(200).json(users);
     } catch (error) {
-        res.status(400).json({ message: 'Error getting all users: ' + error.message });
+        return handleError(res, error.status, error.message);
     }
 });
 
@@ -53,7 +54,7 @@ router.post('/login', async (req, res) => {
         const token = await loginUser(email, password);
         res.send(token);
     } catch (error) {
-        res.status(400).json({ message: 'Error logging in user: ' + error.message });
+        return handleError(res, 400, error.message);
     }
 });
 
