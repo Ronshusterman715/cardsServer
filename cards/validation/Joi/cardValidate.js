@@ -10,7 +10,7 @@ const cardValidate = (card) => {
         description: Joi.string().min(2).max(1024).required(),
         phone: Joi.string()
             .ruleset.regex(/0[0-9]{1,2}\-?\s?[0-9]{3}\s?[0-9]{4}/)
-            .rule({ message: "Phone must be a valid israeli phone number" })
+            .rule({ message: "Phone must be a valid israel phone number" })
             .required(),
         email: Joi.string()
             .ruleset.regex(

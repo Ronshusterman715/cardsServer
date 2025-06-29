@@ -3,6 +3,7 @@ const { createCard, getCardById, getAllCards, getMyCard, updateCard, deleteCard,
 const { auth } = require("../../auth/authService");
 const normalizeCard = require("../helpers/normalizeCard");
 const { handleError, createError } = require("../../utils/handleErrors");
+const cardValidation = require("../validation/cardValidationService");
 
 const router = express.Router();
 
@@ -11,11 +12,15 @@ router.post("/", auth, async (req, res) => {
     try {
         const userInfo = req.user;
         if (!userInfo.isBusiness) {
-            return createError("autorotation", 403, "Only business users can create cards");
+            return createError("autorotation", "Only business users can create cards", 403);
+        }
+
+        const errorMessage = cardValidation(req.body);
+        if (errorMessage !== "") {
+            return createError("validation", errorMessage, 400);
         }
 
         let normalizedCard = await normalizeCard(req.body, userInfo._id);
-
         let card = await createCard(normalizedCard);
         res.status(201).send(card);
     } catch (error) {
@@ -38,7 +43,7 @@ router.get("/my-Cards", auth, async (req, res) => {
     try {
         const userInfo = req.user;
         if (!userInfo.isBusiness) {
-            return createError("autorotation", 403, "Only business users can view their cards");
+            return createError("autorotation", "Only business users can view their cards", 403);
         }
         const user_id = userInfo.id;
         let myCards = await getMyCard(user_id);
@@ -67,7 +72,12 @@ router.put("/:id", auth, async (req, res) => {
         let userInfo = req.user;
         let originalCardFromDB = await getCardById(id);
         if (!userInfo.isAdmin && userInfo._id != originalCardFromDB.user_id) {
-            return createError("autorotation", error.status, error.message)
+            return createError("autorotation", error.message, error.status)
+        }
+
+        const errorMessage = cardValidation(req.body);
+        if (errorMessage !== "") {
+            return createError("validation", errorMessage, 400);
         }
 
         let normalizeUpdateCard = await normalizeCard(req.body, userInfo._id);
@@ -87,7 +97,7 @@ router.delete("/:id", auth, async (req, res) => {
 
         let originalCardFromDB = await getCardById(id);
         if (!userInfo.isAdmin && userInfo._id != originalCardFromDB.user_id) {
-            return createError("autorotation", 403, "only the owner of the card or an admin can delete cards")
+            return createError("autorotation", "only the owner of the card or an admin can delete cards", 403)
         }
 
         res.status(200).send(card);

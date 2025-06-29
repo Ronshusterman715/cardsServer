@@ -20,7 +20,7 @@ const loginValidation = (user) => {
             .required(),
     });
 
-    return schema.validate(user);
+    return schema.validate(user, { abortEarly: false });
 };
 
 module.exports = loginValidation;

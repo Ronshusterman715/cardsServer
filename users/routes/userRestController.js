@@ -13,7 +13,7 @@ router.post('/', async (req, res) => {
 
         const errorMassage = validateRegistration(newUser);
         if (errorMassage !== "") {
-            return createError("validation", 400, errorMassage);
+            return createError("validation", errorMassage, 400);
         }
 
 
@@ -32,7 +32,7 @@ router.get('/:id', auth, async (req, res) => {
 
         let userInfo = req.user;
         if (!userInfo.isAdmin && userInfo._id != user._id) {
-            return createError("autorotation", 403, "only the user himself or an admin can view this user info");
+            return createError("autorotation", "only the user himself or an admin can view this user info", 403);
         }
 
         let user = await getUser(id);
@@ -46,7 +46,7 @@ router.get('/:id', auth, async (req, res) => {
 router.get('/', auth, async (req, res) => {
     let userInfo = req.user;
     if (!userInfo.isAdmin) {
-        return createError("autorotation", 403, "Only admin user can view all users");
+        return createError("autorotation", "Only admin user can view all users", 403);
     }
 
     try {
@@ -64,7 +64,7 @@ router.post('/login', async (req, res) => {
 
         const errorMassage = validateLogin(req.body);
         if (errorMassage !== "") {
-            return createError("validation", 400, errorMassage);
+            return createError("validation", errorMassage, 400);
         }
 
         const token = await loginUser(email, password);
