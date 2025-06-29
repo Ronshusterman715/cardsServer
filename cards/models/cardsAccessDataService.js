@@ -1,7 +1,8 @@
 const { createError } = require("../../utils/handleErrors");
 const Card = require("./mongodb/Card");
+require("dotenv").config();
 
-const DB = "MONGODB";
+const DB = process.env.DB;
 
 //create card
 const createCard = async (newCard) => {
@@ -15,15 +16,6 @@ const createCard = async (newCard) => {
         }
     }
 };
-//         if (DB === "mySQL") {
-//             try {
-// Implement MySQL card creation logic here
-//             } catch (error) {
-
-//             }
-//         }
-//     }
-// }
 
 //get all cards
 const getAllCards = async () => {

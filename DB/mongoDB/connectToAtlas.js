@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+require("dotenv").config();
 
-const connectionStringForAtlas = ""; // Replace with your actual MongoDB Atlas connection string
+const connectionStringForAtlas = process.env.MONGO_ATLAS_URI;
 
 const connectToAtlasDB = async () => {
     try {

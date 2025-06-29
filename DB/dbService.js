@@ -1,19 +1,23 @@
-const { createError } = require("../utils/handleErrors");
-const connectToAtlasDB = require("./mongoDB/connectToAtlas");
-const connectToLocalDB = require("./mongoDB/connectToMongodbLocally");
+const connectToLocalDB = require("./mongodb/connectToMongodbLocally");
+const connectToAtlasDB = require("./mongodb/connectToAtlas");
 
-const ENVIRONMENT = "development";
+require("dotenv").config();
+
+const ENVIRONMENT = process.env.ENVIRONMENT;
+const DB = process.env.DB;
 
 const connectToDB = async () => {
-    if (ENVIRONMENT === "development") {
-        await connectToLocalDB();
-        return "Connected to development database";
-    } else if (ENVIRONMENT === "production") {
-        await connectToAtlasDB();
-        return "Connected to production database";
-    } else {
-        return createError("environment", "Unknown environment", 500);
+    if (DB === "MONGODB") {
+        if (ENVIRONMENT === "development") {
+            await connectToLocalDB();
+        }
+        if (ENVIRONMENT === "production") {
+            await connectToAtlasDB();
+        }
     }
-}
+
+    if (DB === "sql") {
+    }
+};
 
 module.exports = connectToDB;

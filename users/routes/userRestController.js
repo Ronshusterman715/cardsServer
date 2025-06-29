@@ -45,11 +45,11 @@ router.get('/:id', auth, async (req, res) => {
 // get all users
 router.get('/', auth, async (req, res) => {
     let userInfo = req.user;
-    if (!userInfo.isAdmin) {
-        return createError("autorotation", "Only admin user can view all users", 403);
-    }
 
     try {
+        if (!userInfo.isAdmin) {
+            return createError("autorotation", "Only admin user can view all users", 403);
+        }
         let users = await getAllUsers();
         res.status(200).json(users);
     } catch (error) {

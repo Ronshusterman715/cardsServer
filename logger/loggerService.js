@@ -1,9 +1,10 @@
 const morganLogger = require("./morgan/morganLogger");
+require("dotenv").config();
 
-const logger = "morgan";
+const LOGER = process.env.LOGER;
 
 const loggerMiddleWare = () => {
-    if (logger === "morgan") {
+    if (LOGER === "morgan") {
         return morganLogger;
     }
 };

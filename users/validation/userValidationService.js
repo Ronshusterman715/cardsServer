@@ -1,10 +1,11 @@
 const loginValidation = require("./joi/loginValidation");
 const registerValidation = require("./joi/registerValidation");
+require("dotenv").config();
 
-const validator = "Joi"
+const VALIDATOR = process.env.VALIDATOR;
 
 const validateRegistration = (user) => {
-    if (validator === "Joi") {
+    if (VALIDATOR === "Joi") {
         const { error } = registerValidation(user);
         if (error) return error.details.map((detail) => detail.message);
         return "";
