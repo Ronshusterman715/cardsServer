@@ -1,3 +1,6 @@
 [2025-06-29 15:53:37] POST /cards 401  -  2.836 ms
 [2025-06-29 16:17:57] POST /cards 500  -  15.534 ms
 [2025-06-29 16:18:16] POST /cards 500  -  3.991 ms
+[2025-06-29 16:21:35] POST /cards 500  -  5.171 ms
+[2025-06-29 16:21:55] POST /cards 401  -  5.370 ms | Authentication Error: Please Login
+[2025-06-29 16:25:25] POST /cards 401  -  1.030 ms | Authentication Error: Please Login
