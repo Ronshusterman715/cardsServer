@@ -1,5 +1,5 @@
 const express = require('express');
-const { registerUser, getUser, getAllUsers, loginUser } = require('../models/usersAccessDataService');
+const { registerUser, getUser, getAllUsers, loginUser, updateUser, changeBusinessStatus } = require('../models/usersAccessDataService');
 const { auth } = require('../../auth/authService');
 const { handleError, createError } = require('../../utils/handleErrors');
 const returnUser = require('../helpers/returnUser');
@@ -73,6 +73,60 @@ router.post('/login', async (req, res) => {
         return handleError(res, 400, error.message);
     }
 });
+
+//update user
+router.put('/:id', auth, async (req, res) => {
+    let userInfo = req.user;
+    let updatedUser = req.body;
+    const { id } = req.params;
+    try {
+        if (userInfo._id !== id) {
+            throw createError("autorotation", "Only the own user can update his detail", 403)
+        }
+
+        const errorMassage = validateRegistration(updatedUser);
+
+        if (errorMassage !== "") {
+            return createError("validation", errorMassage, 400);
+        }
+        let user = await updateUser(id, updatedUser);
+        res.status(201).json(returnUser(user));
+    } catch (error) {
+        return handleError(res, error.status, error.message);
+    }
+});
+
+
+//change isbuisness status
+router.patch("/:id", auth, async (req, res) => {
+    const { id } = req.params;
+    let userInfo = req.user;
+    try {
+        if (userInfo._id !== id) {
+            throw createError("autorotation", "Only the own user can update his detail", 403)
+        };
+        let user = await changeBusinessStatus(id);
+        res.status(201).json(returnUser(user));
+    } catch (error) {
+        return handleError(res, 400, error.message);
+    }
+});
+
+//delete user
+router.delete("/:id", auth, async (req, res) => {
+    const { id } = req.params;
+    let userInfo = req.user;
+    try {
+        if (!userInfo.isAdmin && userInfo._id !== id) {
+            throw createError("autorotation", "Only the own user or an admin can delete user account", 403)
+        }
+
+        let user = await deleteUser(id);
+        res.status(201).json(returnUser(user));
+    } catch (error) {
+        return handleError(res, 400, error.message);
+    }
+})
 
 module.exports = router;
 

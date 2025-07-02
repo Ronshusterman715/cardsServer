@@ -16,3 +16,12 @@
 [2025-06-29 17:13:31] GET /users 500  -  1.898 ms | Internal Server Error
 [2025-06-29 17:19:35] GET /users 403  -  7.418 ms | autorotation Error: Only admin user can view all users
 [2025-06-29 17:25:14] GET /users 403  -  1.854 ms | autorotation Error: Only admin user can view all users
+[2025-06-29 18:53:14] POST /users/login 400  -  4.564 ms | validator is not defined
+[2025-06-29 18:53:51] POST /users/login 400  -  3.182 ms | validator is not defined
+[2025-06-29 20:40:15] GET /users/login 401  -  4.747 ms | Authentication Error: Please Login
+[2025-06-29 20:40:24] GET /users/login 401  -  0.869 ms | Authentication Error: Please Login
+[2025-06-29 20:40:38] GET /users/login 401  -  28.354 ms | Authentication Error: Please Login
+[2025-06-29 20:40:47] GET /users/login 401  -  0.633 ms | Authentication Error: Please Login
+[2025-06-29 20:40:53] GET /users/login 401  -  0.543 ms | Authentication Error: Please Login
+[2025-06-29 20:41:36] GET /users/login 401  -  0.604 ms | Authentication Error: Please Login
+[2025-06-29 20:41:50] GET /users/login 401  -  0.572 ms | Authentication Error: Please Login

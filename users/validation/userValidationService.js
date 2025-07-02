@@ -13,7 +13,7 @@ const validateRegistration = (user) => {
 };
 
 const validateLogin = (user) => {
-    if (validator === "Joi") {
+    if (VALIDATOR === "Joi") {
         const { error } = loginValidation(user);
         if (error) return error.details.map((detail) => detail.message);
         return "";

@@ -4,6 +4,7 @@ const { auth } = require("../../auth/authService");
 const normalizeCard = require("../helpers/normalizeCard");
 const { handleError, createError } = require("../../utils/handleErrors");
 const cardValidation = require("../validation/cardValidationService");
+const Card = require("../models/mongodb/Card");
 
 const router = express.Router();
 
@@ -80,6 +81,18 @@ router.put("/:id", auth, async (req, res) => {
             return createError("validation", errorMessage, 400);
         }
 
+        if (req.body.bizNumber !== originalCardFromDB.bizNumber && !userInfo.isAdmin) {
+            createError("autorotation", "Only admin user can change bizNumber")
+        }
+
+        if (userInfo.isAdmin && req.body.bizNumber && req.body.bizNumber !== originalCardFromDB.bizNumber) {
+            const cardWithSameBizNumber = await Card.findOne({ bizNumber: req.body.bizNumber });
+
+            if (cardWithSameBizNumber) {
+                return createError("validation", "the new bizNumber is already in use", 400)
+            }
+        }
+
         let normalizeUpdateCard = await normalizeCard(req.body, userInfo._id);
         let card = await updateCard(id, normalizeUpdateCard);
         res.status(201).send(card);
@@ -110,8 +123,9 @@ router.delete("/:id", auth, async (req, res) => {
 router.patch("/:id", auth, async (req, res) => {
     try {
         const { id } = req.params;
-        const { userId } = req.body;
-        let card = await likeCard(id, userId);
+        const userInfo = req.user;
+        const userId = userInfo._id;
+        let card = await likeCard(id, userInfo._id);
         res.status(200).send(card);
     } catch (error) {
         return handleError(res, 400, error.message);

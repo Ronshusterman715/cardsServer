@@ -28,6 +28,13 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    loginAttempts: {
+        type: Number,
+        default: 0,
+    },
+    lockUntil: {
+        Date
+    },
 });
 
 const User = mongoose.model('User', userSchema);

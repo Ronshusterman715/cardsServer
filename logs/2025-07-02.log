@@ -1,0 +1,4 @@
+[2025-07-02 15:28:31] POST /users/login 400  -  98.242 ms | authentication Error: Invalid email or password
+[2025-07-02 15:34:08] GET /users/68614ccf4be33277006813d6 401  -  0.676 ms | Authentication Error: Please Login
+[2025-07-02 16:20:48] GET /users/login 400  -  3.526 ms | mongoose Error: Cast to ObjectId failed for value "login" (type string) at path "_id" for model "User"
+[2025-07-02 16:21:39] GET /users/686147ae0ee46c4e1104763b 500  -  237.590 ms | Internal Server Error
