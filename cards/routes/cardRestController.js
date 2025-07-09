@@ -46,7 +46,7 @@ router.get("/my-Cards", auth, async (req, res) => {
         if (!userInfo.isBusiness) {
             return createError("autorotation", "Only business users can view their cards", 403);
         }
-        const user_id = userInfo.id;
+        const user_id = userInfo._id;
         let myCards = await getMyCard(user_id);
         res.status(200).send(myCards);
     } catch (error) {
@@ -71,7 +71,7 @@ router.put("/:id", auth, async (req, res) => {
         const { id } = req.params;
 
         let userInfo = req.user;
-        let originalCardFromDB = await getCardById(id);
+        const originalCardFromDB = await getCardById(id);
         if (!userInfo.isAdmin && userInfo._id != originalCardFromDB.user_id) {
             return createError("autorotation", error.message, error.status)
         }
@@ -82,14 +82,14 @@ router.put("/:id", auth, async (req, res) => {
         }
 
         if (req.body.bizNumber !== originalCardFromDB.bizNumber && !userInfo.isAdmin) {
-            createError("autorotation", "Only admin user can change bizNumber")
+            return createError("authorization", "Only admin user can change bizNumber")
         }
 
         if (userInfo.isAdmin && req.body.bizNumber && req.body.bizNumber !== originalCardFromDB.bizNumber) {
             const cardWithSameBizNumber = await Card.findOne({ bizNumber: req.body.bizNumber });
 
             if (cardWithSameBizNumber) {
-                return createError("validation", "the new bizNumber is already in use", 400)
+                return createError("validation", "the new bizNumber is al\ready in use", 400)
             }
         }
 
@@ -105,14 +105,16 @@ router.put("/:id", auth, async (req, res) => {
 router.delete("/:id", auth, async (req, res) => {
     try {
         const { id } = req.params;
-        let card = await deleteCard(id);
+        console.log("Trying to delete card with ID:", id); // Debug log
         let userInfo = req.user;
 
         let originalCardFromDB = await getCardById(id);
-        if (!userInfo.isAdmin && userInfo._id != originalCardFromDB.user_id) {
+        console.log("Card found:", originalCardFromDB); // Debug log
+        if (!userInfo.isAdmin && originalCardFromDB.user_id != userInfo._id) {
             return createError("autorotation", "only the owner of the card or an admin can delete cards", 403)
         }
 
+        let card = await deleteCard(id);
         res.status(200).send(card);
     } catch (error) {
         return handleError(res, error.status, error.message)

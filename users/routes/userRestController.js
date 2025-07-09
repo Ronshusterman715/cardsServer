@@ -31,11 +31,12 @@ router.get('/:id', auth, async (req, res) => {
         const { id } = req.params;
 
         let userInfo = req.user;
+        let user = await getUser(id);
         if (!userInfo.isAdmin && userInfo._id != user._id) {
             return createError("autorotation", "only the user himself or an admin can view this user info", 403);
         }
 
-        let user = await getUser(id);
+
         res.status(200).json(user);
     } catch (error) {
         return handleError(res, error.status, error.message);
@@ -80,7 +81,7 @@ router.put('/:id', auth, async (req, res) => {
     let updatedUser = req.body;
     const { id } = req.params;
     try {
-        if (userInfo._id !== id) {
+        if (userInfo._id != id) {
             throw createError("autorotation", "Only the own user can update his detail", 403)
         }
 
@@ -92,7 +93,7 @@ router.put('/:id', auth, async (req, res) => {
         let user = await updateUser(id, updatedUser);
         res.status(201).json(returnUser(user));
     } catch (error) {
-        return handleError(res, error.status, error.message);
+        return handleError(res, 400, error.message);
     }
 });
 

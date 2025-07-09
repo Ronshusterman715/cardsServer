@@ -2,3 +2,50 @@
 [2025-07-02 15:34:08] GET /users/68614ccf4be33277006813d6 401  -  0.676 ms | Authentication Error: Please Login
 [2025-07-02 16:20:48] GET /users/login 400  -  3.526 ms | mongoose Error: Cast to ObjectId failed for value "login" (type string) at path "_id" for model "User"
 [2025-07-02 16:21:39] GET /users/686147ae0ee46c4e1104763b 500  -  237.590 ms | Internal Server Error
+[2025-07-02 18:11:34] POST /users 400  -  82.498 ms | mongoose Error: E11000 duplicate key error collection: cardsServer.users index: email_1 dup key: { email: "ron7892123@gmail.com" }
+[2025-07-02 18:16:12] GET /users/68654d0f8fcabd29bb3e274e 500  -  7.570 ms | Internal Server Error
+[2025-07-02 18:16:12] GET /users/68654d0f8fcabd29bb3e274e 500  -  9.087 ms | Internal Server Error
+[2025-07-02 18:21:01] POST /cards 400  -  56.424 ms | mongoose Error: card validation failed: web: Path `web` is invalid (extension://laameccjpleogmfhilmffpdbiibgbekf/suspended.html?title=seed%20map%20-%20minecraft%20app&url=https%3a%2f%2fwww.chunkbase.com%2fapps%2fseed-map%23seed%3d-2690144100193790274%26platform%3dbedrock_1_21_60%26dimension%3dnether%26x%3d-79%26z%3d-123%26zoom%3d0.615&time=1751359937584).
+[2025-07-02 18:22:06] POST /cards 400  -  13.425 ms | mongoose Error: card validation failed: web: Path `web` is invalid (extension://laameccjpleogmfhilmffpdbiibgbekf/suspended.html?title=seed%20map%20-%20minecraft%20app&url=https%3a%2f%2fwww.chunkbase.com%2fapps%2fseed-map%23seed%3d-2690144100193790274%26platform%3dbedrock_1_21_60%26dimension%3dnether%26x%3d-79%26z%3d-123%26zoom%3d0.615&time=1751359937584).
+[2025-07-02 18:22:28] POST /cards 400  -  9.659 ms | validation Error: Image URL must be valid URL address
+[2025-07-02 18:22:52] POST /cards 400  -  8.969 ms | mongoose Error: card validation failed: web: Path `web` is invalid (extension://laameccjpleogmfhilmffpdbiibgbekf/suspended.html?title=seed%20map%20-%20minecraft%20app&url=https%3a%2f%2fwww.chunkbase.com%2fapps%2fseed-map%23seed%3d-2690144100193790274%26platform%3dbedrock_1_21_60%26dimension%3dnether%26x%3d-79%26z%3d-123%26zoom%3d0.615&time=1751359937584).
+[2025-07-02 18:25:07] PUT /cards/68654f3a8fcabd29bb3e2772 400  -  11.607 ms | autorotation Error: Only admin user can change bizNumber
+[2025-07-02 18:25:20] PUT /cards/68654f3a8fcabd29bb3e2772 400  -  6.431 ms | autorotation Error: Only admin user can change bizNumber
+[2025-07-02 18:30:15] PUT /cards/68654f3a8fcabd29bb3e2772 400  -  47.850 ms | autorotation Error: Only admin user can change bizNumber
+[2025-07-02 18:59:17] GET /users/68654d0f8fcabd29bb3e274e 500  -  7.705 ms | Internal Server Error
+[2025-07-02 18:59:17] GET /users/68654d0f8fcabd29bb3e274e 500  -  8.889 ms | Internal Server Error
+[2025-07-02 19:08:52] PUT /cards/68654f3a8fcabd29bb3e2772 400  -  27.562 ms | validation Error: Image URL must be valid URL address
+[2025-07-02 19:09:10] PUT /cards/68654f3a8fcabd29bb3e2772 400  -  8.126 ms | authorization Error: Only admin user can change bizNumber
+[2025-07-02 19:43:32] POST /cards 400  -  34.825 ms | mongoose Error: card validation failed: web: Path `web` is invalid (extension://laameccjpleogmfhilmffpdbiibgbekf/suspended.html?title=seed%20map%20-%20minecraft%20app&url=https%3a%2f%2fwww.chunkbase.com%2fapps%2fseed-map%23seed%3d-2690144100193790274%26platform%3dbedrock_1_21_60%26dimension%3dnether%26x%3d-79%26z%3d-123%26zoom%3d0.615&time=1751359937584).
+[2025-07-02 19:43:50] DELETE /cards/686561be660fd0082c58c9d5 500  -  24.320 ms | Internal Server Error
+[2025-07-02 19:46:20] GET /users/68654d0f8fcabd29bb3e274e 500  -  8.378 ms | Internal Server Error
+[2025-07-02 19:46:20] GET /users/68654d0f8fcabd29bb3e274e 500  -  10.548 ms | Internal Server Error
+[2025-07-02 19:46:32] GET /users/68654d0f8fcabd29bb3e274e 500  -  6.200 ms | Internal Server Error
+[2025-07-02 19:46:32] GET /users/68654d0f8fcabd29bb3e274e 500  -  4.804 ms | Internal Server Error
+[2025-07-02 19:46:43] GET /users/68654d0f8fcabd29bb3e274e 500  -  3.682 ms | Internal Server Error
+[2025-07-02 19:46:43] GET /users/68654d0f8fcabd29bb3e274e 500  -  3.935 ms | Internal Server Error
+[2025-07-02 19:50:30] GET /users/68654d0f8fcabd29bb3e274e 500  -  9.225 ms | Internal Server Error
+[2025-07-02 19:50:30] GET /users/68654d0f8fcabd29bb3e274e 500  -  5.458 ms | Internal Server Error
+[2025-07-02 19:54:59] GET /users/68654d0f8fcabd29bb3e274e 500  -  14.079 ms | Internal Server Error
+[2025-07-02 19:54:59] GET /users/68654d0f8fcabd29bb3e274e 500  -  5.209 ms | Internal Server Error
+[2025-07-02 19:55:51] POST /cards 400  -  39.732 ms | mongoose Error: card validation failed: web: Path `web` is invalid (extension://laameccjpleogmfhilmffpdbiibgbekf/suspended.html?title=seed%20map%20-%20minecraft%20app&url=https%3a%2f%2fwww.chunkbase.com%2fapps%2fseed-map%23seed%3d-2690144100193790274%26platform%3dbedrock_1_21_60%26dimension%3dnether%26x%3d-79%26z%3d-123%26zoom%3d0.615&time=1751359937584).
+[2025-07-02 19:56:36] PUT /cards/6865649cf9dbf18eba1314cd 400  -  12.123 ms | authorization Error: Only admin user can change bizNumber
+[2025-07-02 19:56:44] PUT /cards/6865649cf9dbf18eba1314cd 400  -  4.599 ms | authorization Error: Only admin user can change bizNumber
+[2025-07-02 19:58:47] POST /cards 400  -  5.444 ms | validation Error: Image URL must be valid URL address
+[2025-07-02 19:59:06] POST /cards 400  -  17.191 ms | mongoose Error: card validation failed: phone: Path `phone` is invalid (052569862).
+[2025-07-02 19:59:13] POST /cards 400  -  6.563 ms | mongoose Error: card validation failed: phone: Path `phone` is invalid (052569862).
+[2025-07-02 19:59:55] PUT /cards/68656567f9dbf18eba1314e0 400  -  7.280 ms | authorization Error: Only admin user can change bizNumber
+[2025-07-02 20:02:04] DELETE /cards/6865649cf9dbf18eba1314cd 500  -  17.465 ms | Internal Server Error
+[2025-07-02 20:05:57] DELETE /cards/6865649cf9dbf18eba1314cd 500  -  28.666 ms | Internal Server Error
+[2025-07-02 20:09:46] DELETE /cards/6865649cf9dbf18eba1314cd 500  -  24.081 ms | Internal Server Error
+[2025-07-02 20:11:12] DELETE /cards/6865649cf9dbf18eba1314cd 500  -  21.879 ms | Internal Server Error
+[2025-07-02 20:16:40] DELETE /cards/6865649cf9dbf18eba1314cd 500  -  26.184 ms | Internal Server Error
+[2025-07-02 20:17:02] DELETE /cards/6865649cf9dbf18eba1314cd 500  -  9.269 ms | Internal Server Error
+[2025-07-02 20:21:17] GET /users/68654d0f8fcabd29bb3e274e 500  -  13.942 ms | Internal Server Error
+[2025-07-02 20:21:17] GET /users/68654d0f8fcabd29bb3e274e 500  -  7.287 ms | Internal Server Error
+[2025-07-02 20:24:05] GET /users/68654d0f8fcabd29bb3e274e 500  -  13.104 ms | Internal Server Error
+[2025-07-02 20:24:05] GET /users/68654d0f8fcabd29bb3e274e 500  -  19.655 ms | Internal Server Error
+[2025-07-02 20:24:09] GET /users/68654d0f8fcabd29bb3e274e 500  -  5.010 ms | Internal Server Error
+[2025-07-02 20:24:09] GET /users/68654d0f8fcabd29bb3e274e 500  -  3.787 ms | Internal Server Error
+[2025-07-02 20:24:18] GET /users/68654d0f8fcabd29bb3e274e 500  -  6.113 ms | Internal Server Error
+[2025-07-02 20:24:18] GET /users/68654d0f8fcabd29bb3e274e 500  -  3.396 ms | Internal Server Error

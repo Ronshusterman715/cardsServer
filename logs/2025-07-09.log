@@ -1,0 +1,4 @@
+[2025-07-09 17:50:46] PUT /cards/68656567f9dbf18eba1314e0 400  -  17.928 ms | authorization Error: Only admin user can change bizNumber
+[2025-07-09 18:00:49] PUT /users/68654d0f8fcabd29bb3e274e 400  -  15.554 ms | validation Error: "email" is required
+[2025-07-09 18:04:51] PUT /users/68654d0f8fcabd29bb3e274e 400  -  2.694 ms | validation Error: "password" is required
+[2025-07-09 18:06:28] PUT /users/68654d0f8fcabd29bb3e274e 400  -  4.910 ms | validation Error: "password" is not allowed to be empty
