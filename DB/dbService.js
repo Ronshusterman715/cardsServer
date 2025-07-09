@@ -1,5 +1,5 @@
-const connectToLocalDB = require("./mongodb/connectToMongodbLocally");
-const connectToAtlasDB = require("./mongodb/connectToAtlas");
+const connectToLocalDB = require("./mongoDB/connectToMongodbLocally");
+const connectToAtlasDB = require("./mongoDB/connectToAtlas");
 
 require("dotenv").config();
 
