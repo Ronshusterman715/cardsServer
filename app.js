@@ -10,7 +10,7 @@ const loggerMiddleWare = require('./logger/loggerService');
 
 
 const app = express();
-const port = 3000;
+const PORT = 8181;
 
 app.use(express.json());
 app.use(express.static("./public"))
@@ -26,8 +26,8 @@ app.use((err, req, res, next) => {
     return handleError(res, 500, "Internal Server Error");
 });
 
-app.listen(port, () => {
-    console.log(chalk.green.bold.bgYellow('Server is running on port ' + port));
-    connectToDB()
-})
+app.listen(process.env.PORT || PORT, () => {
+    console.log(chalk.green.bold.bgYellow("app is listening to port " + PORT));
+    connectToDB();
+});
 
